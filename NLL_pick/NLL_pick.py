@@ -6,9 +6,12 @@ from matplotlib import pyplot as plt
 from scipy.stats import multivariate_normal
 import os
 import time
+import sys
+
 
 def main():
-    X = pd.read_csv("d1s4090_norm2000.csv", header = 0, index_col = 0)
+    filename = sys.argv[-1]
+    X = pd.read_csv(filename, header = 0, index_col = 0)
     def optim_n(X, nmin, nmax):
         nll = []
         for n in range(nmin, nmax):

@@ -37,4 +37,5 @@ def main():
 if __name__ == '__main__':
     folder_name = 'T-CorEx_' + time.strftime("%Y_%m_%d_%H_%M_%S")
     os.mkdir(folder_name)
+    os.chdir(folder_name)
     main()

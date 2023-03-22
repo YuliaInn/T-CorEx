@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from matplotlib import pyplot as plt
+from scipy.stats import multivariate_normal
 import os
 import time
 
@@ -20,11 +21,12 @@ def main():
             nll.append(-multivariate_normal.logpdf(Xz,cov=cov_mat).mean())
         return(nll)
 
-    optim_n(X, 1, 5)
-    nll_fig = plt.plot()
-    nll_fig.savefig('nll_plot.png')
-
-    min_index = nll.index(min_value) 
+    nll = optim_n(X, 1, 5)
+    fig = plt.figure()
+    plt.plot(nll)
+    fig.savefig('nll_plot.png')
+    min_value = min(nll)
+    min_index = nll.index(min_value) + 1
 
     out = corex.Corex(2000, n_hidden=min_index, verbose = 2).fit(X)
     cov_mat = pd.DataFrame(data=out.get_covariance(), index=X.columns ,columns=X.columns)
